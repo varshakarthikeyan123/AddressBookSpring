@@ -8,23 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AddressBookService {
+public class AddressBookService implements IAddressBookService {
 
     private final List<AddressBook> addressList = new ArrayList<>();
 
-    // CREATE
+    @Override
     public AddressBook addAddress(AddressBookDTO dto) {
         AddressBook address = new AddressBook(dto);
         addressList.add(address);
         return address;
     }
 
-    // GET ALL
+    @Override
     public List<AddressBook> getAllAddresses() {
         return addressList;
     }
 
-    // GET BY ID
+    @Override
     public AddressBook getById(int id) {
         return addressList.stream()
                 .filter(a -> a.getId() == id)
@@ -32,7 +32,7 @@ public class AddressBookService {
                 .orElse(null);
     }
 
-    // UPDATE
+    @Override
     public AddressBook update(int id, AddressBookDTO dto) {
         AddressBook address = getById(id);
         if (address != null) {
@@ -42,7 +42,7 @@ public class AddressBookService {
         return address;
     }
 
-    // DELETE
+    @Override
     public void delete(int id) {
         addressList.removeIf(a -> a.getId() == id);
     }
